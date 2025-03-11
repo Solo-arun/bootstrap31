@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Registration Form</h2>
+        <form id="registrationForm">
+            <label>Username:</label>
+            <input type="text" id="username" required>
+            <span class="error" id="usernameError"></span>
+
+            <label>Email:</label>
+            <input type="email" id="email" required>
+            <span class="error" id="emailError"></span>
+
+            <label>Password:</label>
+            <input type="password" id="password" required>
+            <span class="error" id="passwordError"></span>
+
+            <label>Message/Address:</label>
+            <textarea id="message" required></textarea>
+            <span class="error" id="messageError"></span>
+
+            <label>Contact Number:</label>
+            <input type="text" id="contact" required>
+            <span class="error" id="contactError"></span>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let valid = true;
+
+            let username = document.getElementById('username').value;
+            let email = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
+            let message = document.getElementById('message').value;
+            let contact = document.getElementById('contact').value;
+
+            let usernameError = document.getElementById('usernameError');
+            let emailError = document.getElementById('emailError');
+            let passwordError = document.getElementById('passwordError');
+            let messageError = document.getElementById('messageError');
+            let contactError = document.getElementById('contactError');
+
+            usernameError.textContent = emailError.textContent = passwordError.textContent = messageError.textContent = contactError.textContent = '';
+
+            if (username.length < 3) {
+                usernameError.textContent = 'Username must be at least 3 characters long';
+                valid = false;
+            }
+            if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+                emailError.textContent = 'Invalid email format';
+                valid = false;
+            }
+            if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(password)) {
+                passwordError.textContent = 'Password must be at least 6 characters long, contain letters and numbers';
+                valid = false;
+            }
+            if (message.length < 10) {
+                messageError.textContent = 'Message must be at least 10 characters long';
+                valid = false;
+            }
+            if (!/^\d{10}$/.test(contact)) {
+                contactError.textContent = 'Contact number must be exactly 10 digits';
+                valid = false;
+            }
+            
+            if (valid) {
+                alert('Form submitted successfully!');
+            }
+        });
+    </script>
+</body>
+</html>
